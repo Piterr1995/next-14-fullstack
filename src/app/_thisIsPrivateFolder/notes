@@ -1,0 +1,2 @@
+This folder won't be treated as route segment
+You could do this but this is not neccessary because Next already handles non-page files

@@ -1,0 +1,12 @@
+.childrenWrapper {
+  animation: 2s animate linear forwards;
+}
+
+@keyframes animate {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
