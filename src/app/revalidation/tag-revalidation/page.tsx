@@ -1,14 +1,21 @@
 import React from "react";
+import RevalidateButton from "./Button";
 
-async function getData() {
+export default async function Page() {
+  //   const data = await getData();
   const res = await fetch(
     "https://timeapi.io/api/Time/current/zone?timeZone=Europe/Amsterdam",
-    { next: { tags: ["time"] } }
+    {
+      next: { tags: ["time"] },
+      // cache: "no-store" wtedy nie będzie cashowania
+    }
   );
-  const data = res.json();
-  return data;
-}
-export default async function page() {
-  const data = await getData();
-  return <div>{JSON.stringify(data)}</div>;
+  const data = await res.json();
+
+  return (
+    <div>
+      {JSON.stringify(data)}
+      <RevalidateButton />
+    </div>
+  );
 }

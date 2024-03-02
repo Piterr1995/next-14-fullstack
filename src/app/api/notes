@@ -1,3 +1,6 @@
 Caching stores data so it doesn't need to be re-fetched from your data source on every request.
 
 By default, Next.js automatically caches the returned values of fetch in the Data Cache on the server. This means that the data can be fetched at build time or request time, cached, and reused on each data request.
+
+!IMPORTANT
+Since Server Components render on the server, you don't need to call a Route Handler from a Server Component to fetch data. Instead, you can fetch the data directly inside the Server Component.

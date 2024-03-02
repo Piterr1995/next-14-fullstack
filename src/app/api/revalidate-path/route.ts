@@ -1,6 +1,6 @@
 import { revalidatePath } from "next/cache";
 import { NextRequest } from "next/server";
-
+import { headers } from "next/headers";
 // Example request
 // http "localhost:3000/api/revalidate-path?pathToRevalidate=/api/time"
 // http GET "localhost:3000/api/revalidate-path?pathToRevalidate=/api/pokemon/charizard"
@@ -8,8 +8,27 @@ import { NextRequest } from "next/server";
 // http GET "localhost:3000/api/revalidate-path?pathToRevalidate=/revalidation/path-revalidation"
 export async function GET(request: NextRequest) {
   const pathToRevalidate = request.nextUrl.searchParams.get("pathToRevalidate");
-  if (pathToRevalidate) {
-    revalidatePath(pathToRevalidate);
+
+  // remember that the referer header
+  // is controlled by the client and can be changed or omitted by the client or proxy servers,
+  //  so it is not always reliable for
+  // security critical operations
+
+  const referer = request.headers.get("referer");
+
+  // OR
+  // const headerList = headers();
+  // const referer = headerList.get("referer"); // this is the incoming request URL
+
+  // To revalidate pathToRevalidateParam (considered better)
+  // if (pathToRevalidate) {
+
+  // To revalidate basing on incoming request url
+  if (referer) {
+    const pathname =
+      "/" + referer?.split("/").filter(Boolean).slice(2).join("/");
+
+    revalidatePath(pathname);
 
     // Zeby zrewalidować wszystkie ścieki
     // revalidatePath("/", "layout");

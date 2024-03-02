@@ -11,7 +11,7 @@ export async function GET(_: any, { params }: { params: { tag: string } }) {
 
 // Przyklad z medium
 // export async function POST(
-//   request: NextRequest,
+//   request: any,
 //   { params }: { params: { tag: string } }
 // ) {
 //   const tag = params.tag;
